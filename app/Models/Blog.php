@@ -11,4 +11,6 @@ class Blog extends Model
 {
     use HasFactory;
     use Searchable;
+
+    protected $guarded = [];
 }

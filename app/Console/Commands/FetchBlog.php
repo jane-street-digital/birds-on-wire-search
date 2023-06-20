@@ -2,25 +2,25 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Podcast;
+use App\Models\Blog;
 use Illuminate\Console\Command;
 
-class FetchPodcastRSS extends Command
+class FetchBlog extends Command
 {
-    protected $signature = 'rss:podcast';
+    protected $signature = 'rss:blog';
 
     protected $description = 'Fetches RSS content and inserts it into respective tables.';
 
     public function handle()
     {
-        $response = \Illuminate\Support\Facades\Http::get('https://birdsonawiremoms.com/podcast?format=rss');
+        $response = \Illuminate\Support\Facades\Http::get('https://birdsonawiremoms.com/blog?format=rss');
         $results = $response->body();
         $xml = simplexml_load_string($results);
 
-        Podcast::truncate();
+        Blog::truncate();
 
         foreach ($xml->channel->item as $item) {
-            Podcast::create([
+            Blog::create([
                 'name' => $item->title,
                 'description' => (string) $item->description,
                 'link' => $item->link,
