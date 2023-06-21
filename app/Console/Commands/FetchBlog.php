@@ -17,9 +17,8 @@ class FetchBlog extends Command
         $results = $response->body();
         $xml = simplexml_load_string($results);
 
-        Blog::truncate();
-
         foreach ($xml->channel->item as $item) {
+
             Blog::create([
                 'name' => $item->title,
                 'description' => (string) $item->description,
