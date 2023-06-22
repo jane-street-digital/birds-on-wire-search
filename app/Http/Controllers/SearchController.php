@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Blog;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
@@ -12,7 +12,7 @@ class SearchController extends Controller
         $results = null;
 
         if ($query = $request->get('query')) {
-            $results = Blog::search($query)->paginate(10);
+            $results = Post::search($query)->paginate(10);
         }
 
         return view('search', [

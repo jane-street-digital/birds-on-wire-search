@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Blog;
 use Illuminate\Console\Command;
+use \Illuminate\Support\Facades\Http;
 
 class FetchBlog extends Command
 {
@@ -14,17 +15,18 @@ class FetchBlog extends Command
     public function handle()
     {
         $endDate = now();
-        $startDate = now()->subYears(7);
+        $startDate = now()->subYears(1);
 
         while ($endDate >= $startDate) {
             $offset = $endDate->timestamp * 1000;
 
-            $response = \Illuminate\Support\Facades\Http::get('https://birdsonawiremoms.com/blog?offset=' . $offset . '&format=rss');
+            $response = HTTP::get('https://birdsonawiremoms.com/blog?offset=' . $offset . '&format=rss');
             $results = $response->body();
             $xml = simplexml_load_string($results);
 
-            try {
-                foreach ($xml->channel->item as $item) {
+
+            foreach ($xml->channel->item as $item) {
+                try {
                     Blog::create([
                         'title' => $item->title,
                         'description' => (string) $item->description,
@@ -32,9 +34,9 @@ class FetchBlog extends Command
                         'pubDate' => $item->pubDate,
                         'thumbnail' => $item->thumbnail,
                     ]);
+                } catch (\Throwable $th) {
+                    //throw $th;
                 }
-            } catch (\Throwable $th) {
-                //throw $th;
             }
 
 

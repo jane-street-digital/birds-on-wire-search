@@ -14,7 +14,7 @@ class FetchPodcast extends Command
     public function handle()
     {
         $endDate = now();
-        $startDate = now()->subYears(7);
+        $startDate = now()->subYears(1);
 
         while ($endDate >= $startDate) {
             $offset = $endDate->timestamp * 1000;
@@ -23,8 +23,8 @@ class FetchPodcast extends Command
             $results = $response->body();
             $xml = simplexml_load_string($results);
 
-            try {
-                foreach ($xml->channel->item as $item) {
+            foreach ($xml->channel->item as $item) {
+                try {
                     Podcast::create([
                         'title' => $item->title,
                         'description' => (string) $item->description,
@@ -32,11 +32,10 @@ class FetchPodcast extends Command
                         'pubDate' => $item->pubDate,
                         'thumbnail' => $item->thumbnail,
                     ]);
+                } catch (\Throwable $th) {
+                    //throw $th;
                 }
-            } catch (\Throwable $th) {
-                //throw $th;
             }
-
 
             $this->info('RSS content for ' . $endDate->format('Y-m-d') . ' has been inserted into the respective tables.');
 

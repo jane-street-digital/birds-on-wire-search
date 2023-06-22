@@ -6,17 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 
-
-class Podcast extends Model
+class Post extends Model
 {
     use HasFactory;
     use Searchable;
+
 
     protected $guarded = [];
 
     public function searchableAs(): string
     {
-        return 'podcasts_index';
+        return 'posts_index';
     }
 
     public function toSearchableArray()
@@ -26,14 +26,12 @@ class Podcast extends Model
          *
          * @return array<string, mixed>
          */
-        $array = $this->toArray();
         return [
-            'id' => $this->getKey(),
-            'title' => $array['title'],
-            'description' => $array['description'],
-            'link' => $array['link'],
-            'pubDate' => $array['pubDate'],
-            'podcast' => $array['podcast']
+            'id' => $this->id,
+            'title' => $this->title,
+            'description' => $this->title,
+            'link' => $this->link,
+            'pubDate' => $this->pubDate,
         ];
     }
 }

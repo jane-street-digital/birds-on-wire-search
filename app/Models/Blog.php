@@ -26,14 +26,13 @@ class Blog extends Model
          *
          * @return array<string, mixed>
          */
-        $array = $this->toArray();
         return [
-            'id' => $this->getKey(),
-            'title' => $array['title'],
-            'description' => $array['description'],
-            'link' => $array['link'],
-            'pubDate' => $array['pubDate'],
-            'blog' => $array['blog']
+            'id' => $this->id,
+            'title' => $this->title,
+            'description' => $this->title,
+            'link' => $this->link,
+            'pubDate' => $this->pubDate,
+            'blog' => $this->blog
         ];
     }
 }
