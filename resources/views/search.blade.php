@@ -19,7 +19,7 @@
                         <div class="space-y-4">
                             @if ($results->count())
                                 @foreach ($results as $result)
-                                    <div class="border">
+                                    <div class="border mb-4">
                                         <h1>Title:{{ $result->title }}</h1>
                                         <p>Published: {{ $result->pubDate }}</p>
                                         <p>Description:{{ $result->description }}</p>
