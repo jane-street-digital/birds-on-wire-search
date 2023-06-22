@@ -11,21 +11,24 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <form action="/" method="GET">
                         <x-text-input id="query" name="query" type="search" placeholder="Search...."
-                            class="block w-full" />
+                            class="block w-full" value="{{ request()->get('query') }}" />
                         <x-primary-button style="margin: 1rem 0">Search</x-button>
                     </form>
 
                     @if ($results)
                         <div class="space-y-4">
                             @if ($results->count())
+                                <em class="">Found {{ $results->total() }} results</em>
                                 @foreach ($results as $result)
                                     <div class="border mb-4">
-                                        <h1>Title:{{ $result->title }}</h1>
+                                        <h1 class="text-lg">Title:{{ $result->title }}</h1>
                                         <p>Published: {{ $result->pubDate }}</p>
                                         <p>Description:{{ $result->description }}</p>
                                         <a href="{{ $result->link }}" class="underline">Link</a>
                                     </div>
                                 @endforeach
+
+                                {{ $results->links() }}
                             @else
                                 <p>No results found</p>
                             @endif

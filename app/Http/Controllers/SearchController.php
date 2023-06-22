@@ -12,7 +12,7 @@ class SearchController extends Controller
         $results = null;
 
         if ($query = $request->get('query')) {
-            $results = Blog::search($query)->get();
+            $results = Blog::search($query)->paginate(10);
         }
 
         return view('search', [

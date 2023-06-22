@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('link');
             $table->string('thumbnail');
             $table->string('pubDate');
+            $table->boolean('podcast')->default(1);
             $table->timestamps();
         });
     }

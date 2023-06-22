@@ -32,7 +32,8 @@ class Blog extends Model
             'title' => $array['title'],
             'description' => $array['description'],
             'link' => $array['link'],
-            'pubDate' => $array['pubDate']
+            'pubDate' => $array['pubDate'],
+            'blog' => $array['blog']
         ];
     }
 }
