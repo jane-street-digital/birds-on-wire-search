@@ -13,4 +13,24 @@ class Blog extends Model
     use Searchable;
 
     protected $guarded = [];
+
+    public function searchableAs(): string
+    {
+        return 'blogs_index';
+    }
+
+    public function toSearchableArray()
+    {
+        /**
+         * Get the indexable data array for the model.
+         *
+         * @return array<string, mixed>
+         */
+        $array = $this->toArray();
+        return [
+            'id' => $this->getKey(),
+            'title' => $array['title'],
+            'description' => $array['description'],
+        ];
+    }
 }
