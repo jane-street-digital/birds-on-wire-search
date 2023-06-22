@@ -21,7 +21,9 @@
                                 @foreach ($results as $result)
                                     <div class="border">
                                         <h1>Title:{{ $result->title }}</h1>
+                                        <p>Published: {{ $result->pubDate }}</p>
                                         <p>Description:{{ $result->description }}</p>
+                                        <a href="{{ $result->link }}" class="underline">Link</a>
                                     </div>
                                 @endforeach
                             @else

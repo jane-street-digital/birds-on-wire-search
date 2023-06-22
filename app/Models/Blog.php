@@ -31,6 +31,8 @@ class Blog extends Model
             'id' => $this->getKey(),
             'title' => $array['title'],
             'description' => $array['description'],
+            'link' => $array['link'],
+            'pubDate' => $array['pubDate']
         ];
     }
 }
