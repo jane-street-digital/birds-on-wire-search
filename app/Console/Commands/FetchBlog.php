@@ -14,38 +14,24 @@ class FetchBlog extends Command
 
     public function handle()
     {
-        $endDate = now();
-        $startDate = now()->subYears(1);
+        $response = HTTP::get('https://birdsonawiremoms.com/blog?format=rss');
+        $results = $response->body();
+        $data = simplexml_load_string($results);
 
-        while ($endDate >= $startDate) {
-            $offset = $endDate->timestamp * 1000;
-
-            $response = HTTP::get('https://birdsonawiremoms.com/blog?offset=' . $offset . '&format=rss');
-            $results = $response->body();
-            $xml = simplexml_load_string($results);
-
-
-            foreach ($xml->channel->item as $item) {
-                try {
-                    Blog::create([
-                        'title' => $item->title,
-                        'description' => (string) $item->description,
-                        'link' => $item->link,
-                        'pubDate' => $item->pubDate,
-                        'thumbnail' => $item->thumbnail,
-                    ]);
-                } catch (\Throwable $th) {
-                    //throw $th;
-                }
+        foreach ($data->channel->item as $item) {
+            try {
+                Blog::create([
+                    'title' => $item->title,
+                    'description' => (string) $item->description,
+                    'link' => $item->link,
+                    'pubDate' => $item->pubDate,
+                    'thumbnail' => $item->thumbnail,
+                ]);
+            } catch (\Throwable $th) {
+                //throw $th;
             }
-
-
-            $this->info('RSS content for ' . $endDate->format('Y-m-d') . ' has been inserted into the respective tables.');
-
-            // Move to the previous week
-            $endDate->subWeek();
         }
 
-        $this->info('RSS content has been inserted for all weeks.');
+        $this->info('RSS content has been inserted into the respective table.');
     }
 }
