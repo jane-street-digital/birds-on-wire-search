@@ -21,11 +21,6 @@ class Post extends Model
 
     public function toSearchableArray()
     {
-        /**
-         * Get the indexable data array for the model.
-         *
-         * @return array<string, mixed>
-         */
         return [
             'id' => $this->id,
             'title' => $this->title,
