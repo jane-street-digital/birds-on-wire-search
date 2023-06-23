@@ -14,7 +14,7 @@ class CreatePosts extends Command
      *
      * @var string
      */
-    protected $signature = 'app:create-posts';
+    protected $signature = 'rss:create-posts';
 
     /**
      * The console command description.
