@@ -14,6 +14,10 @@ class Post extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
+
     public function searchableAs(): string
     {
         return 'posts_index';
@@ -26,7 +30,8 @@ class Post extends Model
             'title' => $this->title,
             'description' => $this->title,
             'link' => $this->link,
-            'pubDate' => $this->pubDate,
+            'published_at' => $this->published_at,
+            'category' => $this->category,
         ];
     }
 }

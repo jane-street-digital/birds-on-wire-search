@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Blog;
+use App\Models\Post;
 use Illuminate\Console\Command;
 use \Illuminate\Support\Facades\Http;
 
@@ -20,12 +21,13 @@ class FetchBlog extends Command
 
         foreach ($data->channel->item as $item) {
             try {
-                Blog::create([
+                Post::create([
                     'title' => $item->title,
                     'description' => (string) $item->description,
                     'link' => $item->link,
-                    'pubDate' => $item->pubDate,
+                    'published_at' => $item->pubDate,
                     'thumbnail' => $item->thumbnail,
+                    'category' => 'Blog',
                 ]);
             } catch (\Throwable $th) {
                 //throw $th;

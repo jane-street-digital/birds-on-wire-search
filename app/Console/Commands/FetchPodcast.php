@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Podcast;
+use App\Models\Post;
 use \Illuminate\Support\Facades\Http;
 use Illuminate\Console\Command;
 
@@ -20,12 +21,13 @@ class FetchPodcast extends Command
 
         foreach ($data->channel->item as $item) {
             try {
-                Podcast::create([
+                Post::create([
                     'title' => $item->title,
                     'description' => (string) $item->description,
                     'link' => $item->link,
-                    'pubDate' => $item->pubDate,
+                    'published_at' => $item->pubDate,
                     'thumbnail' => $item->thumbnail,
+                    'category' => 'Podcast',
                 ]);
             } catch (\Throwable $th) {
                 //throw $th;
