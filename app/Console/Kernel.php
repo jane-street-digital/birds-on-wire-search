@@ -14,7 +14,6 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('rss:podcast')->daily();
         $schedule->command('rss:blog')->daily();
-        $schedule->command('app:create-posts')->daily();
     }
 
     /**

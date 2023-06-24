@@ -2,8 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Blog;
-use App\Models\Podcast;
 use App\Models\Post;
 use Illuminate\Console\Command;
 use \Illuminate\Support\Facades\Http;
