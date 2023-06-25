@@ -26,12 +26,8 @@ class Post extends Model
     public function toSearchableArray()
     {
         return [
-            'id' => $this->id,
             'title' => $this->title,
             'description' => $this->title,
-            'link' => $this->link,
-            'published_at' => $this->published_at,
-            'category' => $this->category,
         ];
     }
 }

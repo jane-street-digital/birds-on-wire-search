@@ -12,8 +12,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('rss:podcast')->daily();
-        $schedule->command('rss:blog')->daily();
+        $schedule->command('rss:fetch-current')->daily();
     }
 
     /**
