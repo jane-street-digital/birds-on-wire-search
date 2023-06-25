@@ -31,7 +31,7 @@
                                     {{ $result->category }}
                                 </div>
                                 <div>
-                                    <p>{!! mb_strimwidth($result->description, 0, 200, '...') !!}</p>
+                                    <p>{!! $result->description !!}</p>
                                 </div>
                             </div>
                         @endforeach
